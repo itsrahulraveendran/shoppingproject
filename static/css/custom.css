@@ -94,7 +94,8 @@ font-size:12px;
 
 }
 .shop_btn {
-    width:300px;
+    width:400px;
+    background-color: red !important;
 
 }
 .custom_a{
