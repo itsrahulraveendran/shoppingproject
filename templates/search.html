@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+   we have verity of products
+{% endblock %}
+{% block title %}
+  search
+{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+      <p class="text-center my_search_text">You have searched for:<b>"{{query_key}}"</b></p>
+    </div>
+
+
+    <div class="row mx_auto">
+    <!--        added .object_list afterproducts for page-->
+            {% for pdt in products_key %}
+            <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+                <div class="card text-center" style="min-width: 10rem;">
+                    <a href="{{ pdt.get_url }}"><img class="card-img-top my_image" src="{{ pdt.image.url }}" alt="{{ pdt.name }}" style="height: 200px; width: 200px;"></a>
+                     <div class="card-body">
+                            <h2>{{ pdt.name }}</h2>
+                            <p>INR {{ pdt.price }}</p>
+                     </div>
+                </div>
+            </div>
+            {% empty %}
+              <div class="row mx-auto">
+                <p class="text-center my_search_text">0 results found</p>
+              </div>
+
+            {%endfor%}
+
+    </div>
+</div>
+ {% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{ product_key.description|truncatewords:155 }}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ product_key.name }} -Advanture Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'shoppingapp:allproductcat' %}">HOME</a>  | <a href="{{product_key.category.get_url}}">Category</a> | {{product_key.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{product_key.image.url}}" alt="{{product_key.name}}">
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+        <div>
+        <h1 style="color:Black">{{product_key.name}}</h1>
+        <h2 class="my_product_price">$ {{product_key.price}}</h2>
+        <h3>Product Discription</h3>
+        <p>{{product_key.productdiscr}}</p>
+        {% if product_key.stock <= 0 %}
+            <p style="color:red">Out Of Stock</p>
+            <a class="btn btn-secondary"href="{% url 'cartapp:add_cart' product_key.id %}">ADD TO CART</a>
+        {% else %}
+        <a class="btn btn-secondary"  href="{% url 'cartapp:add_cart' product_key.id %}" >Add to Cart</a>
+        {% endif %}
+    </div>
+
+</div>
+</div>
+</div><br>
+{% endblock %}

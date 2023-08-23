@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155 }}
+    {% else %}
+        Welcome to Advanture store where you can buys adventure items...
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }} -Advanture Store
+    {% else %}
+    See our new collections-Advanture Store
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if category %}
+    <div>
+         <div class="row my_row_class">
+             <div class="mx-auto">
+        <p>
+            <a href="{% url 'shoppingapp:allproductcat' %}"> This is banner </a>
+        </p>
+                 </div>
+        </div>
+    </div>
+{% endif %}
+<div class="mx-auto">
+    {% if category %}
+    <img class="my_image" src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+    <br>
+<div>
+    <h1 class="text-center my_title">{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+</div>
+{% else %}
+<div>
+<img class="my_image my_image_padding" src="{% static 'img/banner1.jpg' %}" alt="our Products"  width="100%" height="800px">
+</div><br>
+<div>
+    <h1 class="text_center my_title"> Our Product collections</h1>
+    <p class="tex-justify">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</div>
+{% endif %}
+
+
+<div class="container">
+    <div class="row mx_auto">
+<!--        added .object_list afterproducts for page-->
+        {% for pdt in products.object_list %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+            <div class="card text-center" style="min-width: 10rem;">
+                <a href="{{ pdt.get_url }}"><img class="card-img-top my_image" src="{{ pdt.image.url }}" alt="{{ pdt.name }}" style="height: 200px; width: 200px;"></a>
+                 <div class="card-body">
+                        <h2>{{ pdt.name }}</h2>
+                        <p>INR {{ pdt.price }}</p>
+                 </div>
+            </div>
+        </div>
+        {%endfor%}
+
+<!--        editing for page number-->
+    <div class="pagenumber">
+       <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+
+        <hr>
+
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+            {% endfor %}
+            <div> Previous  Next page</div>
+        </div>
+        {% endif %}
+        </div>
+    <br>
+    </div>
+    </div>
+
+</div><br>
+<!-- <div><p>hi</p></div>-->
+{% endblock %}
+
+
+

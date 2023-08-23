@@ -1,0 +1,48 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'shoppingapp:allproductcat' %}">HOME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'shoppingapp:allproductcat' %}">products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown {% if 'shoppingapp' in request.path %} active {% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            SHOP
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'shoppingapp:allproductcat' %}">All Products</a></li>
+             {% for pdt in links %}
+            <li><a class="dropdown-item" href="{{pdt.get_url}}">{{pdt.name}}</a></li>
+             {% endfor %}
+
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        {% if item_count > 0 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cartapp:cart_detail' %}" ><i class="fa-solid fa-cart-shopping"></i>{{item_count}} Cart</a>
+        </li>
+
+<!--        else-->
+<!--          <li class="nav-item">-->
+<!--          <a class="nav-link" href="" ><i class="fa-solid fa-cart-shopping"></i>cart</a>-->
+            {% endif %}
+        </li>
+      </ul>
+      <form class="d-flex" role="search" action="{% url  'searchapp:SearchResult' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
