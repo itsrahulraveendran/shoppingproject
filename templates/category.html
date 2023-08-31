@@ -39,7 +39,7 @@
 </div>
 {% else %}
 <div>
-<img class="my_image my_image_padding" src="{% static 'img/banner1.jpg' %}" alt="our Products"  width="100%" height="800px">
+<img class="my_image my_image_padding" src="{% static 'img/banner1.jpg' %}" alt="our Products">
 </div><br>
 <div>
     <h1 class="text_center my_title"> Our Product collections</h1>
@@ -58,7 +58,7 @@
             <div class="card text-center" style="min-width: 10rem;">
                 <a href="{{ pdt.get_url }}"><img class="card-img-top my_image" src="{{ pdt.image.url }}" alt="{{ pdt.name }}" style="height: 200px; width: 200px;"></a>
                  <div class="card-body">
-                        <h2>{{ pdt.name }}</h2>
+                        <h3>{{ pdt.name }}</h3>
                         <p>INR {{ pdt.price }}</p>
                  </div>
             </div>
